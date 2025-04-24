@@ -6,6 +6,7 @@ from fastapi.responses import JSONResponse
 from pydantic import BaseModel
 import os
 from PIL import Image
+from fastapi.middleware.cors import CORSMiddleware
 
 # uvicorn main_gemini:app --reload
 
@@ -16,6 +17,15 @@ app = FastAPI()
 file_context = "context.txt"
 user_inputAPI = ""
 file_location = ""
+
+# Allow all origins for dev — adjust for prod
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"], 
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 #using fitz to be able to read pdf
 def readFile(file):
@@ -63,15 +73,15 @@ async def receive_message(msg: Message):
 
     if file_location and not file_location.endswith(".png"):
         response = generate_response_from_file(user_inputAPI)
-        return {"Response": response}
+        return {"response": response}
     
     if file_location.endswith(".png"):
         response = generate_response_from_img(user_inputAPI)
-        return {"Response": response}
+        return {"response": response}
     
     response = generate_response(user_inputAPI)
 
-    return {"Response": response}
+    return {"response": response}
 
 # generating whe there is an image
 def generate_response_from_img(user_input):
@@ -120,6 +130,8 @@ def generate_response(user_input):
     template = f'Answer the question below.\n\nHere is the conversation history:\n\n {context}\n\nYour name is Freddie mercury and you are a artifical inteligence made to change the key of asked songs. You do that only if the person sends you a file or the song as a text.You will receive the song as a text, and have to return it as text too. You must always return a simplified version of the given song transposed up to the asked number of key(s).\n\nQuestion: {user_input}\nAnswer:'
        
     response = model.generate_content(template) #generating response
+
+    print(response.text)
 
     new_context(file_context,user_input,response.text) #writing new context
 
