@@ -1,4 +1,4 @@
-# Documentação da API - Freddie Mercury AI
+# Documentação da API - Freddie Mercury AI (Backend)
 
 ## 1. Descrição da Aplicação e Funcionalidades
 
