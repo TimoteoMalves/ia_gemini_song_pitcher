@@ -3,6 +3,8 @@
 ## 1. Descrição da Aplicação e Funcionalidades
 
 Esta é uma API desenvolvida com **FastAPI** que funciona como um assistente de inteligência artificial chamado **Freddie Mercury**, destinado para **transpor músicas para outras tonalidades**. O usuário interage com o sistema por meio de perguntas e envio de arquivos contendo letras de músicas em **formato `.pdf` ou `.png`** ou apenas digitando.
+A IA recebe instruções diretas sobre sua identidade, sendo Freddi Mercury, e portanto responde como tal.
+
 
 ### Funcionalidades principais:
 
@@ -10,6 +12,7 @@ Esta é uma API desenvolvida com **FastAPI** que funciona como um assistente de 
 - Processamento de imagens e PDFs para extrair o texto.
 - Recebimento de mensagens com pedidos para mudar o tom da música.
 - Respostas geradas via modelo de IA da Google Gemini.
+- Template de envio para a IA. Dando instruções e contexto para a resposta da pergunta.
 - AI contextualizada - através do armazenamento do histórico de conversa em um arquivo local `context.txt`.
 
 ---
